@@ -1,25 +1,28 @@
 /*
- * SPI_NRF.c
- *
- * Created: 12/30/2019 10:01:11 PM
- * Author : Elgazzar
- */ 
-
+* SPI_NRF.c
+*
+* Created: 12/30/2019 10:01:11 PM
+* Author : Elgazzar
+*/
+#define F_CPU 8000000UL  // 8 MHz
 #include <avr/io.h>
+#include "util/delay.h"
 #include "SPI.h"
+#include "LED.h"
 
-/*Define a variable to toggle*/
-char a = 0xFF;
 
 int main(void)
 {
-    /* Replace with your application code */
+	/*Initialize Led as OUTPUT*/
+	DDRB = (1<<PINB5);
+	/*Initialize SPI*/
 	SPI_MasterInit();
-    while (1) 
-    {
-		a = !a;
-		SPI_MasterTransmit(a);
-    }
+	while (1)
+	{
+		/*Transmit A*/
+		SPI_MasterTransmit('A');
+		_delay_ms(1000);
+	}
 }
 
 
