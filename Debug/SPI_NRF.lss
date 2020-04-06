@@ -3,27 +3,27 @@ SPI_NRF.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .data         00000000  00800100  00800100  0000010e  2**0
+  0 .data         00000000  00800100  00800100  0000010a  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  1 .text         000000ba  00000000  00000000  00000054  2**1
+  1 .text         000000b6  00000000  00000000  00000054  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .comment      00000030  00000000  00000000  0000010e  2**0
+  2 .comment      00000030  00000000  00000000  0000010a  2**0
                   CONTENTS, READONLY
-  3 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  00000140  2**2
+  3 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  0000013c  2**2
                   CONTENTS, READONLY
-  4 .debug_aranges 00000058  00000000  00000000  00000180  2**0
+  4 .debug_aranges 00000058  00000000  00000000  0000017c  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_info   0000081c  00000000  00000000  000001d8  2**0
+  5 .debug_info   00000811  00000000  00000000  000001d4  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_abbrev 00000733  00000000  00000000  000009f4  2**0
+  6 .debug_abbrev 00000733  00000000  00000000  000009e5  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_line   0000037b  00000000  00000000  00001127  2**0
+  7 .debug_line   00000375  00000000  00000000  00001118  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_frame  00000078  00000000  00000000  000014a4  2**2
+  8 .debug_frame  00000078  00000000  00000000  00001490  2**2
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_str    000003b7  00000000  00000000  0000151c  2**0
+  9 .debug_str    000003b7  00000000  00000000  00001508  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_ranges 00000038  00000000  00000000  000018d3  2**0
+ 10 .debug_ranges 00000038  00000000  00000000  000018bf  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -64,7 +64,7 @@ Disassembly of section .text:
   70:	de bf       	out	0x3e, r29	; 62
   72:	cd bf       	out	0x3d, r28	; 61
   74:	0e 94 40 00 	call	0x80	; 0x80 <main>
-  78:	0c 94 5b 00 	jmp	0xb6	; 0xb6 <_exit>
+  78:	0c 94 59 00 	jmp	0xb2	; 0xb2 <_exit>
 
 0000007c <__bad_interrupt>:
   7c:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
@@ -74,69 +74,65 @@ Disassembly of section .text:
 
 int main(void)
 {
-	/*Initialize Led as OUTPUT*/
-	DDRB = (1<<PINB5);
-  80:	80 e2       	ldi	r24, 0x20	; 32
-  82:	84 b9       	out	0x04, r24	; 4
 	/*Initialize SPI*/
 	SPI_MasterInit();
-  84:	0e 94 51 00 	call	0xa2	; 0xa2 <SPI_MasterInit>
+  80:	0e 94 4f 00 	call	0x9e	; 0x9e <SPI_MasterInit>
 	while (1)
 	{
 		/*Transmit A*/
 		SPI_MasterTransmit('A');
-  88:	81 e4       	ldi	r24, 0x41	; 65
-  8a:	0e 94 56 00 	call	0xac	; 0xac <SPI_MasterTransmit>
+  84:	81 e4       	ldi	r24, 0x41	; 65
+  86:	0e 94 54 00 	call	0xa8	; 0xa8 <SPI_MasterTransmit>
 	#else
 		//round up by default
 		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
 	#endif
 
 	__builtin_avr_delay_cycles(__ticks_dc);
-  8e:	2f ef       	ldi	r18, 0xFF	; 255
-  90:	89 e6       	ldi	r24, 0x69	; 105
-  92:	98 e1       	ldi	r25, 0x18	; 24
-  94:	21 50       	subi	r18, 0x01	; 1
-  96:	80 40       	sbci	r24, 0x00	; 0
-  98:	90 40       	sbci	r25, 0x00	; 0
-  9a:	e1 f7       	brne	.-8      	; 0x94 <main+0x14>
-  9c:	00 c0       	rjmp	.+0      	; 0x9e <main+0x1e>
-  9e:	00 00       	nop
-  a0:	f3 cf       	rjmp	.-26     	; 0x88 <main+0x8>
+  8a:	2f ef       	ldi	r18, 0xFF	; 255
+  8c:	89 e6       	ldi	r24, 0x69	; 105
+  8e:	98 e1       	ldi	r25, 0x18	; 24
+  90:	21 50       	subi	r18, 0x01	; 1
+  92:	80 40       	sbci	r24, 0x00	; 0
+  94:	90 40       	sbci	r25, 0x00	; 0
+  96:	e1 f7       	brne	.-8      	; 0x90 <main+0x10>
+  98:	00 c0       	rjmp	.+0      	; 0x9a <main+0x1a>
+  9a:	00 00       	nop
+  9c:	f3 cf       	rjmp	.-26     	; 0x84 <main+0x4>
 
-000000a2 <SPI_MasterInit>:
+0000009e <SPI_MasterInit>:
 #include "SPI.h"
 
 void SPI_MasterInit(void)
 {
 	/* Set MOSI and SCK output, all others input */
 	DDR_SPI = (1<<DD_MOSI)|(1<<DD_SCK);
-  a2:	88 e2       	ldi	r24, 0x28	; 40
-  a4:	84 b9       	out	0x04, r24	; 4
+  9e:	88 e2       	ldi	r24, 0x28	; 40
+  a0:	84 b9       	out	0x04, r24	; 4
 	/* Enable SPI, Master, set clock rate fck/16 */
 	SPCR = (1<<SPE)|(1<<MSTR)|(1<<SPR0);
-  a6:	81 e5       	ldi	r24, 0x51	; 81
-  a8:	8c bd       	out	0x2c, r24	; 44
-  aa:	08 95       	ret
+  a2:	81 e5       	ldi	r24, 0x51	; 81
+  a4:	8c bd       	out	0x2c, r24	; 44
+  a6:	08 95       	ret
 
-000000ac <SPI_MasterTransmit>:
+000000a8 <SPI_MasterTransmit>:
 }
 
 void SPI_MasterTransmit(char cData)
 {
 	/* Start transmission */
 	SPDR = cData;
-  ac:	8e bd       	out	0x2e, r24	; 46
+  a8:	8e bd       	out	0x2e, r24	; 46
 	/* Wait for transmission complete */
 	while(!(SPSR & (1<<SPIF)));
-  ae:	0d b4       	in	r0, 0x2d	; 45
-  b0:	07 fe       	sbrs	r0, 7
-  b2:	fd cf       	rjmp	.-6      	; 0xae <SPI_MasterTransmit+0x2>
+  aa:	0d b4       	in	r0, 0x2d	; 45
+  ac:	07 fe       	sbrs	r0, 7
+  ae:	fd cf       	rjmp	.-6      	; 0xaa <SPI_MasterTransmit+0x2>
 }
-  b4:	08 95       	ret
+  b0:	08 95       	ret
 
-000000b6 <_exit>:
-  b6:	f8 94       	cli
+000000b2 <_exit>:
+  b2:	f8 94       	cli
 
-000000b8 <__stop_program>:
-  b8:	ff cf       	rjmp	.-2      	; 0xb8 <__stop_program>
+000000b4 <__stop_program>:
+  b4:	ff cf       	rjmp	.-2      	; 0xb4 <__stop_program>

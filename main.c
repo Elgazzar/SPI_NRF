@@ -13,14 +13,13 @@
 
 int main(void)
 {
-	/*Initialize Led as OUTPUT*/
-	DDRB = (1<<PINB5);
 	/*Initialize SPI*/
 	SPI_MasterInit();
 	while (1)
 	{
 		/*Transmit A*/
 		SPI_MasterTransmit('A');
+		/*delay for one second*/
 		_delay_ms(1000);
 	}
 }

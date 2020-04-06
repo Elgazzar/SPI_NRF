@@ -9,6 +9,12 @@
 #include "util\delay.h"
 #include "LED.h"
 
+/*Initalize LED As OUTPUT Which is PB5*/
+void Initialize_LED(void)
+{
+	/*Initialize Led as OUTPUT*/
+	DDRB = (1<<PINB5);
+}
 
 void Toggle_LED(void)
 {
