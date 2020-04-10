@@ -16,7 +16,7 @@
 #define DD_MISO PB4
 
 void SPI_MasterInit(void);
-void SPI_MasterTransmit(char cData);
+char SPI_MasterTransmit(char cData);
 void SPI_SlaveInit(void);
 char SPI_SlaveReceive(void);
 

@@ -124,6 +124,12 @@
     <Compile Include="Include\LED.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="Include\NRF2401.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Include\NRF2401_Registers.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="Include\SPI.h">
       <SubType>compile</SubType>
     </Compile>
@@ -133,6 +139,9 @@
     <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="NRF2401\NRF2401.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="SPI\SPI.c">
       <SubType>compile</SubType>
     </Compile>
@@ -140,6 +149,7 @@
   <ItemGroup>
     <Folder Include="Include" />
     <Folder Include="LED" />
+    <Folder Include="NRF2401" />
     <Folder Include="SPI" />
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
